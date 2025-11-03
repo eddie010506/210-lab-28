@@ -11,6 +11,7 @@ using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25;
 void sort_by_name(list<Goat> &trip);
+void sort_by_age(list<Goat> &trip);
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
@@ -66,6 +67,8 @@ int main() {
                 sort_by_name(trip);
                 break;
             case 5:
+                sort_by_age(trip);
+                break;
             case 6:
             case 7:
             case 8:
@@ -90,6 +93,7 @@ int main_menu() {
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
     cout << "[4] Sort by Name (list::sort)\n";
+    cout << "[5] Sort by Age (list::sort)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -143,8 +147,16 @@ int select_goat(list<Goat> trp) {
     }
     return input;
 }
-void sort_by_name(list<Goat> &trip) {
+void sort_by_name(list<Goat> &trip) {// milestone 1
     cout << "Sorting goats by name\n";
     trip.sort(); 
+    display_trip(trip);
+}
+void sort_by_age(list<Goat> &trip) {// milestone 2
+    cout << "Sorting goats by age\n";
+    // using lambda
+    trip.sort([](const Goat& a, const Goat& b) {
+        return a.get_age() < b.get_age();
+    });
     display_trip(trip);
 }
