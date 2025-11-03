@@ -14,6 +14,11 @@ void sort_by_name(list<Goat> &trip);
 void sort_by_age(list<Goat> &trip);
 void reverse_list(list<Goat> &trip);
 void find_goat(const list<Goat> &trip);
+void count_goats(const list<Goat> &trip);
+
+
+
+
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
@@ -78,6 +83,8 @@ int main() {
                 find_goat(trip);
                 break;
             case 8:
+                count_goats(trip);
+                break;
             case 9:
             case 10:
             case 11:
@@ -102,6 +109,7 @@ int main_menu() {
     cout << "[5] Sort by Age (list::sort)\n";
     cout << "[6] Reverse list (list::reverse)\n";
     cout << "[7] Find Goat by Name (std::find)\n";
+    cout << "[8] Count Goats Over Age (std::count)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -190,4 +198,22 @@ void find_goat(const list<Goat> &trip) {
     else {
         cout << "Could not find a goat named " << name << ".\n";
     }
+}
+void count_goats(const list<Goat> &trip) {
+    int age;
+    cout << "Count goats older than: ";
+    cin >> age;
+    while(cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "No Goat older than that, Try Again: ";
+        cin >> age;
+    }
+
+    // using std::count_if with a lambda
+    int count = count_if(trip.begin(), trip.end(), [age](const Goat& g) {
+        return g.get_age() > age;
+    });
+
+    cout << "Found " << count << " goats older than " << age << ".\n";
 }
