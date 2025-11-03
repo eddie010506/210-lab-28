@@ -2,11 +2,15 @@
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <string>       
+#include <algorithm>    
+#include <vector>       
+#include <random>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25;
-
+void sort_by_name(list<Goat> &trip);
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
@@ -58,6 +62,17 @@ int main() {
                 cout << "Displaying goat data.\n";
                 display_trip(trip);
                 break;
+            case 4:
+                sort_by_name(trip);
+                break;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+    
             default:
                 cout << "Invalid selection.\n";
                 break;
@@ -74,7 +89,8 @@ int main_menu() {
     cout << "[1] Add a goat\n";
     cout << "[2] Delete a goat\n";
     cout << "[3] List goats\n";
-    cout << "[4] Quit\n";
+    cout << "[4] Sort by Name (list::sort)\n";
+    cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
     cin >> choice;
@@ -84,6 +100,7 @@ int main_menu() {
     }
     return choice;
 }
+
 
 void delete_goat(list<Goat> &trip) {
     cout << "DELETE A GOAT\n";
@@ -120,9 +137,14 @@ int select_goat(list<Goat> trp) {
     display_trip(trp);
     cout << "Choice --> ";
     cin >> input;
-    while (input < 1 or input > trp.size()) {
+    while (input < 1 || input > trp.size()) {
         cout << "Invalid choice, again --> ";
         cin >> input;
     }
     return input;
+}
+void sort_by_name(list<Goat> &trip) {
+    cout << "Sorting goats by name\n";
+    trip.sort(); 
+    display_trip(trip);
 }
