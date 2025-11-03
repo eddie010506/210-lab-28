@@ -12,6 +12,7 @@ using namespace std;
 const int SZ_NAMES = 200, SZ_COLORS = 25;
 void sort_by_name(list<Goat> &trip);
 void sort_by_age(list<Goat> &trip);
+void reverse_list(list<Goat> &trip);
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
@@ -70,6 +71,8 @@ int main() {
                 sort_by_age(trip);
                 break;
             case 6:
+                reverse_list(trip);
+                break;
             case 7:
             case 8:
             case 9:
@@ -94,6 +97,7 @@ int main_menu() {
     cout << "[3] List goats\n";
     cout << "[4] Sort by Name (list::sort)\n";
     cout << "[5] Sort by Age (list::sort)\n";
+    cout << "[6] Reverse list (list::reverse)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -158,5 +162,10 @@ void sort_by_age(list<Goat> &trip) {// milestone 2
     trip.sort([](const Goat& a, const Goat& b) {
         return a.get_age() < b.get_age();
     });
+    display_trip(trip);
+}
+void reverse_list(list<Goat> &trip) {
+    cout << "Reversing the list\n";
+    trip.reverse();
     display_trip(trip);
 }
