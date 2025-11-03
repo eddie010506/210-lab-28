@@ -17,6 +17,7 @@ void find_goat(const list<Goat> &trip);
 void count_goats(const list<Goat> &trip);
 void age_goats(list<Goat> &trip);
 void remove_by_color(list<Goat> &trip);
+void find_oldest_goat(const list<Goat> &trip);
 
 
 
@@ -93,6 +94,8 @@ int main() {
                 age_goats(trip);
                 break;
             case 11:
+                find_oldest_goat(trip);
+                break;
     
             default:
                 cout << "Invalid selection.\n";
@@ -117,6 +120,7 @@ int main_menu() {
     cout << "[8] Count Goats Over Age (std::count)\n";
     cout << "[9] Remove by Color (list::remove_if)\n";
     cout << "[10] Age All Goats (std::for_each)\n";
+    cout << "[11] Find Oldest Goat (std::max_element)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -249,4 +253,21 @@ void age_goats(list<Goat> &trip) {// making each goat 1 years older
     });
 
     display_trip(trip);
+}
+
+void find_oldest_goat(const list<Goat> &trip) {
+    cout << "Finding the oldest goat...\n";
+
+    if (trip.empty()) {
+        cout << "The trip is empty!\n";
+        return;
+    }
+
+    // using std::max_element with a lambda to compare ages
+    auto oldest_goat_it = std::max_element(trip.begin(), trip.end(),[](const Goat& a, const Goat& b) {
+            return a.get_age() < b.get_age();// return and update oldest one
+        });
+
+
+    cout << "The oldest goat is: "<< oldest_goat_it->get_name()<< " (" << oldest_goat_it->get_age()<< ", " << oldest_goat_it->get_color() << ")\n";
 }
