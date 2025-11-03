@@ -15,6 +15,7 @@ void sort_by_age(list<Goat> &trip);
 void reverse_list(list<Goat> &trip);
 void find_goat(const list<Goat> &trip);
 void count_goats(const list<Goat> &trip);
+void age_goats(list<Goat> &trip);
 void remove_by_color(list<Goat> &trip);
 
 
@@ -89,6 +90,8 @@ int main() {
                 remove_by_color(trip);
                 break;
             case 10:
+                age_goats(trip);
+                break;
             case 11:
     
             default:
@@ -113,6 +116,7 @@ int main_menu() {
     cout << "[7] Find Goat by Name (std::find)\n";
     cout << "[8] Count Goats Over Age (std::count)\n";
     cout << "[9] Remove by Color (list::remove_if)\n";
+    cout << "[10] Age All Goats (std::for_each)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -235,4 +239,14 @@ void remove_by_color(list<Goat> &trip) {
     int removed_count = old_size - trip.size();
     cout << "Removed " << removed_count << " goats with color " << color << ".\n";
     cout << "New trip size: " << trip.size() << endl;
+}
+void age_goats(list<Goat> &trip) {// making each goat 1 years older
+    cout << "It's everyone's birthday! Aging all goats by 1 year\n";
+    
+    // Using std::for_each to modify every element
+    for_each(trip.begin(), trip.end(), [](Goat& g) {
+        g.set_age(g.get_age() + 1);
+    });
+
+    display_trip(trip);
 }
