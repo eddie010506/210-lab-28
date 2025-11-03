@@ -13,6 +13,7 @@ const int SZ_NAMES = 200, SZ_COLORS = 25;
 void sort_by_name(list<Goat> &trip);
 void sort_by_age(list<Goat> &trip);
 void reverse_list(list<Goat> &trip);
+void find_goat(const list<Goat> &trip);
 int select_goat(list<Goat> trip);
 void delete_goat(list<Goat> &trip);
 void add_goat(list<Goat> &trip, string [], string []);
@@ -74,6 +75,8 @@ int main() {
                 reverse_list(trip);
                 break;
             case 7:
+                find_goat(trip);
+                break;
             case 8:
             case 9:
             case 10:
@@ -98,6 +101,7 @@ int main_menu() {
     cout << "[4] Sort by Name (list::sort)\n";
     cout << "[5] Sort by Age (list::sort)\n";
     cout << "[6] Reverse list (list::reverse)\n";
+    cout << "[7] Find Goat by Name (std::find)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -168,4 +172,22 @@ void reverse_list(list<Goat> &trip) {
     cout << "Reversing the list\n";
     trip.reverse();
     display_trip(trip);
+}
+void find_goat(const list<Goat> &trip) {
+    string name;
+    cout << "Enter name to find: ";
+    cin >> name;
+
+    // using std::find_if with a lambda
+    auto it = find_if(trip.begin(), trip.end(), [name](const Goat& g) {
+        return g.get_name() == name;
+    });
+
+    if (it != trip.end()) {
+        cout << "Found! " << it->get_name() << " (" << it->get_age() 
+             << ", " << it->get_color() << ")\n";
+    } 
+    else {
+        cout << "Could not find a goat named " << name << ".\n";
+    }
 }
