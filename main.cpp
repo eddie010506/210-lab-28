@@ -15,7 +15,7 @@ void sort_by_age(list<Goat> &trip);
 void reverse_list(list<Goat> &trip);
 void find_goat(const list<Goat> &trip);
 void count_goats(const list<Goat> &trip);
-
+void remove_by_color(list<Goat> &trip);
 
 
 
@@ -86,6 +86,8 @@ int main() {
                 count_goats(trip);
                 break;
             case 9:
+                remove_by_color(trip);
+                break;
             case 10:
             case 11:
     
@@ -110,6 +112,7 @@ int main_menu() {
     cout << "[6] Reverse list (list::reverse)\n";
     cout << "[7] Find Goat by Name (std::find)\n";
     cout << "[8] Count Goats Over Age (std::count)\n";
+    cout << "[9] Remove by Color (list::remove_if)\n";
     cout << "[12] Quit\n";
     cout << "Choice --> ";
     int choice;
@@ -216,4 +219,20 @@ void count_goats(const list<Goat> &trip) {
     });
 
     cout << "Found " << count << " goats older than " << age << ".\n";
+}
+
+void remove_by_color(list<Goat> &trip) {
+    string color;
+    cout << "Enter color to remove (e.g., Red, Blue): ";
+    cin >> color;
+
+    // using list::remove_if with a lambda
+    int old_size = trip.size();
+    trip.remove_if([color](const Goat& g) {
+        return g.get_color() == color;
+    });
+
+    int removed_count = old_size - trip.size();
+    cout << "Removed " << removed_count << " goats with color " << color << ".\n";
+    cout << "New trip size: " << trip.size() << endl;
 }
